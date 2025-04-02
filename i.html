@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ismart Financial Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- CSS Styles --- */
+        :root {
+            --primary-color: #ffc107; /* Yellow */
+            --secondary-color: #4caf50; /* Green */
+            --consult-color: #1976d2; /* Blue for Consult button */
+            --consult-hover-color: #1565c0;
+            --dark-color: #333;
+            --light-color: #f4f4f4;
+            --white-color: #fff;
+            --gray-color: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+             scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            /* overflow: hidden; <-- REMOVED - Managed by JS */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0; /* Slightly reduced padding */
+        }
+
+        /* Make logo area clickable */
+        .logo-link {
+            text-decoration: none;
+            display: flex; /* Use flex for alignment within the link */
+            align-items: center;
+            color: inherit; /* Inherit color to avoid blue link style */
+        }
+
+        .logo img {
+            height: 55px; /* Adjusted size */
+            margin-right: 12px;
+             display: block; /* Prevents extra space below image */
+        }
+
+        .logo-text h1 {
+            color: var(--dark-color);
+            font-size: 1.5rem; /* Adjusted size */
+            margin-bottom: 2px;
+             font-weight: 600;
+        }
+
+        .logo-text p {
+            color: var(--gray-color);
+            font-size: 0.8rem; /* Adjusted size */
+             line-height: 1.2;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px; /* Increased spacing */
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding-bottom: 5px; /* Add padding for border */
+            border-bottom: 2px solid transparent; /* Prepare for hover effect */
+             font-size: 0.95rem; /* Slight adjustment */
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active-nav { /* Style for active link */
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color); /* Underline on hover/active */
+        }
+
+        .language-toggle-container { /* Wrapper for language toggle */
+             margin-left: 25px;
+             position: relative;
+        }
+
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            background: var(--light-color);
+            border-radius: 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+
+        .language-toggle span {
+            margin: 0 5px;
+            font-size: 0.9rem;
+        }
+
+        .active-lang {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            height: 3px;
+            width: 100%;
+            background-color: var(--dark-color);
+            border-radius: 10px;
+            transition: all 0.3s ease; /* Add transition for hamburger animation */
+        }
+        /* Basic Hamburger 'X' state */
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('/api/placeholder/1920/800/finance-city-blur') center/cover no-repeat; /* Example placeholder */
+            color: var(--white-color);
+            text-align: center;
+            padding: 100px 0; /* Adjusted padding */
+        }
+
+        .hero h2 {
+            font-size: 2.8rem; /* Adjusted heading size */
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem; /* Adjusted text size */
+            margin-bottom: 35px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .hero-buttons { /* Container for buttons */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px; /* Adjusted padding */
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.95rem; /* Adjusted font size */
+            border: none;
+            cursor: pointer;
+            text-align: center;
+             min-width: 180px; /* Give buttons minimum width */
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button.primary { /* Main action - Consult Now */
+            background-color: var(--consult-color);
+            color: var(--white-color);
+        }
+        .cta-button.primary:hover {
+            background-color: var(--consult-hover-color);
+        }
+
+        .cta-button.secondary { /* Our Services */
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+        }
+        .cta-button.secondary:hover {
+            background-color: #e6ac00; /* Darker yellow */
+        }
+
+        .cta-button.tertiary { /* Download Brochure */
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+        }
+        .cta-button.tertiary:hover {
+            background-color: #43a047; /* Darker green */
+        }
+
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background-color: var(--white-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+             /* Adjust columns for 11 items - aiming for 3 or 4 per row */
+             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Slightly smaller min */
+             gap: 25px; /* Adjusted gap */
+        }
+
+        .service-card {
+            background-color: var(--white-color);
+            border-radius: 10px;
+            padding: 25px; /* Adjusted padding */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #eee;
+             display: flex; /* Use flexbox for better alignment */
+             flex-direction: column;
+             align-items: center;
+             justify-content: flex-start; /* Align items to top */
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            border-color: var(--secondary-color);
+        }
+
+        .service-icon {
+            font-size: 2.8rem; /* Adjusted icon size */
+            color: var(--secondary-color);
+            margin-bottom: 20px; /* Adjusted spacing */
+             min-height: 45px; /* Ensure space for icon */
+        }
+
+        .service-card h3 {
+            margin-bottom: 12px; /* Adjusted spacing */
+            color: var(--dark-color);
+            font-size: 1.15rem; /* Adjusted heading size */
+            font-weight: 600;
+             min-height: 40px; /* Give space for 2 lines */
+             display: flex;
+             align-items: center; /* Center title vertically */
+        }
+
+        .service-card p {
+            color: var(--gray-color);
+            font-size: 0.9rem; /* Adjusted text size */
+            line-height: 1.5;
+            flex-grow: 1; /* Allow paragraph to take remaining space */
+        }
+
+        /* --- MODAL STYLES --- */
+        /* Base Modal Style */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Prevent background scroll */
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease-out;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal-content {
+            background-color: var(--white-color);
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            position: relative;
+            animation: slideIn 0.4s ease-out;
+            max-height: 85vh; /* Slightly reduced max height */
+            overflow-y: auto; /* Allow internal scroll */
+        }
+        @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--gray-color);
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+            line-height: 1;
+        }
+        .close-modal:hover { color: var(--dark-color); transform: rotate(90deg); }
+
+        /* Language Modal Specific Styles */
+        #languageModal { display: flex; } /* Show initially */
+        #languageModal .modal-content { max-width: 550px; text-align: center; overflow-y: hidden; }
+        #languageModal h2 { margin-bottom: 35px; color: var(--dark-color); font-size: 1.8rem; font-weight: 600; }
+        .language-options { display: flex; justify-content: center; gap: 25px; }
+        .language-option { display: flex; flex-direction: column; align-items: center; padding: 25px; border-radius: 10px; background-color: var(--light-color); cursor: pointer; transition: all 0.3s ease; width: 180px; border: 1px solid #eee; }
+        .language-option:hover { transform: translateY(-5px); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); background-color: #e9e9e9; }
+        .language-option i { font-size: 2.5rem; margin-bottom: 20px; color: var(--secondary-color); }
+        .language-option h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 600; }
+        .language-option p { font-size: 0.9rem; color: var(--gray-color); line-height: 1.4; }
+
+        /* Service Modal Specific Styles */
+        #serviceModal .modal-content { max-width: 700px; text-align: left; }
+        .modal-header { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 25px; }
+        .modal-header h3 { color: var(--secondary-color); font-size: 1.7rem; font-weight: 600; }
+        #modalServiceDescription { color: var(--dark-color); font-size: 1rem; line-height: 1.7; }
+
+        /* Why Choose Us Section */
+        .why-us { padding: 80px 0; background-color: var(--light-color); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+        .feature-item { display: flex; align-items: flex-start; background-color: var(--white-color); padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07); transition: all 0.3s ease; }
+        .feature-item:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .feature-icon { background-color: var(--primary-color); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0; color: var(--dark-color); }
+        .feature-icon i { font-size: 1.8rem; }
+        .feature-text h3 { margin-bottom: 12px; color: var(--dark-color); font-size: 1.15rem; font-weight: 600; }
+        .feature-text p { color: var(--gray-color); font-size: 0.95rem; line-height: 1.6; }
+
+        /* Location Section */
+        .location { padding: 80px 0; background-color: var(--white-color); }
+        .location-content { display: grid; grid-template-columns: 1fr; gap: 40px; }
+        @media (min-width: 992px) { .location-content { grid-template-columns: 1fr 1fr; align-items: center; } }
+        .map-container { height: 450px; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); border: 1px solid #eee; }
+        .map-placeholder { width: 100%; height: 100%; background-color: #e9e9e9; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--gray-color); }
+        .map-placeholder i { font-size: 3rem; margin-bottom: 15px; }
+        .map-placeholder span { font-size: 1.1rem; }
+        .contact-details { display: flex; flex-direction: column; gap: 20px; }
+        .contact-item { display: flex; align-items: center; padding: 20px; background: var(--light-color); border-radius: 8px; border: 1px solid #ddd; transition: all 0.3s ease; }
+        .contact-item:hover { border-left: 5px solid var(--secondary-color); background-color: #fff; }
+        .contact-icon { margin-right: 18px; color: var(--secondary-color); font-size: 1.8rem; width: 30px; text-align: center; }
+        .contact-info h4 { margin-bottom: 8px; font-size: 1.1rem; font-weight: 600; }
+        .contact-info p, .contact-info a { color: var(--gray-color); text-decoration: none; transition: color 0.3s ease; font-size: 1rem; }
+        .contact-info a:hover { color: var(--secondary-color); text-decoration: underline; }
+
+        /* Footer */
+        footer { background-color: var(--dark-color); color: #ccc; padding: 60px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-section h3 { color: var(--primary-color); margin-bottom: 25px; position: relative; padding-bottom: 12px; font-size: 1.3rem; }
+        .footer-section h3::after { content: ''; position: absolute; left: 0; bottom: 0; width: 50px; height: 3px; background-color: var(--secondary-color); border-radius: 1.5px; }
+        .footer-section p { margin-bottom: 20px; color: #bbb; line-height: 1.7; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: #ccc; text-decoration: none; transition: all 0.3s ease; display: inline-block; }
+        .footer-links a:hover { color: var(--primary-color); transform: translateX(5px); text-decoration: underline; }
+        .footer-links i { margin-right: 8px; width: 15px; }
+        .social-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .social-links a { background-color: rgba(255, 255, 255, 0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white-color); text-decoration: none; transition: all 0.3s ease; font-size: 1.1rem; }
+        .social-links a:hover { background-color: var(--primary-color); color: var(--dark-color); transform: translateY(-3px) scale(1.1); }
+        /* Ensure WhatsApp Icon Color is visible */
+         .social-links a .fa-whatsapp { color: #25D366; /* Official WhatsApp green */ }
+         .social-links a:hover .fa-whatsapp { color: var(--dark-color); /* Change color on hover if needed */ }
+
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #aaa; font-size: 0.9rem; }
+        .footer-bottom a { color: var(--primary-color); text-decoration: none; }
+        .footer-bottom a:hover { text-decoration: underline; }
+
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+             .nav-links { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--white-color); box-shadow: 0 5px 10px rgba(0,0,0,0.1); padding: 10px 0; height: auto; }
+             .nav-links.active { display: flex; }
+             .nav-links li { margin: 0; width: 100%; text-align: center; }
+             .nav-links a { padding: 12px 15px; display: block; border-bottom: 1px solid #eee; }
+             .nav-links a:hover, .nav-links a.active-nav { background-color: var(--light-color); border-bottom: 1px solid #eee; }
+             .language-toggle-container { margin-left: 0; margin-top: 10px; padding: 0 15px 10px; border-top: 1px solid #eee; }
+             .language-toggle { justify-content: center; }
+             .hamburger { display: flex; margin-left: auto; }
+             .header-container { padding: 10px 15px; flex-wrap: wrap; position: relative; }
+             .logo-link { margin-bottom: 0; }
+             .nav-container { width: 100%; order: 3; }
+             .header-container > .logo-link, .header-container > .hamburger { flex-basis: auto; }
+             .hero h2 { font-size: 2.2rem; }
+             .hero p { font-size: 1.1rem; }
+             .services-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } /* Adjust for fewer columns */
+             .features-grid { grid-template-columns: 1fr; }
+             .location-content { grid-template-columns: 1fr; }
+             .modal-content { padding: 25px 20px; }
+             .language-options { flex-direction: column; align-items: center; gap: 15px; }
+             .language-option { margin-bottom: 0; width: 90%; padding: 20px; }
+             .footer-content { grid-template-columns: 1fr; text-align: center; }
+             .footer-section h3::after { left: 50%; transform: translateX(-50%); }
+             .social-links { justify-content: center; }
+        }
+         @media (max-width: 767px) {
+              .services-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } /* Further adjust for small screens */
+         }
+         @media (max-width: 480px) {
+             .logo img { height: 50px; }
+             .logo-text h1 { font-size: 1.3rem; }
+             .hero h2 { font-size: 1.8rem; }
+             .hero p { font-size: 1rem; }
+             .hero-buttons { flex-direction: column; align-items: center;} /* Stack buttons vertically */
+             .cta-button { padding: 12px 25px; font-size: 0.9rem; width: 80%; /* Make buttons wider */ max-width: 300px;}
+             .section-title h2 { font-size: 1.8rem; }
+             .services-grid { grid-template-columns: 1fr; } /* Single column */
+             .service-card { padding: 20px; }
+             .service-icon { font-size: 2.5rem; }
+             .service-card h3 { font-size: 1.1rem; min-height: auto; /* Remove min-height */}
+             .feature-icon { width: 50px; height: 50px; margin-right: 15px; }
+             .feature-icon i { font-size: 1.5rem; }
+             .feature-text h3 { font-size: 1.1rem; }
+             .contact-icon { font-size: 1.5rem; margin-right: 15px; }
+             .contact-info h4 { font-size: 1rem; }
+             .contact-info p, .contact-info a { font-size: 0.9rem; }
+             #languageModal h2 { font-size: 1.5rem; }
+             .language-option h3 { font-size: 1.1rem; }
+             .modal-header h3 { font-size: 1.4rem; }
+             #modalServiceDescription { font-size: 0.95rem; }
+         }
+
+    </style>
+</head>
+<body>
+
+    <div class="modal" id="languageModal">
+        <div class="modal-content">
+            <h2>Choose Your Language / ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆರಿಸಿ</h2>
+            <div class="language-options">
+                <div class="language-option" id="chooseEnglish">
+                    <i class="fas fa-language"></i>
+                    <h3>English</h3>
+                    <p>Continue in English</p>
+                </div>
+                <div class="language-option" id="chooseKannada">
+                    <i class="fas fa-language"></i>
+                    <h3>ಕನ್ನಡ</h3>
+                    <p>ಕನ್ನಡದಲ್ಲಿ ಮುಂದುವರಿಸಿ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="serviceModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeServiceModal">×</span>
+            <div class="modal-header">
+                <h3 id="modalServiceName">Service Name</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modalServiceDescription">Service description will appear here.</p>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container header-container">
+            <a href="#location" class="logo-link">
+                 <img src="images/asset-6.png" alt="Ismart Financial Services Logo">
+                <div class="logo-text">
+                    <h1 class="lang-en">Ismart Financial Services</h1>
+                    <h1 class="lang-kn" style="display: none;">ಐಸ್ಮಾರ್ಟ್ ಫೈನಾನ್ಷಿಯಲ್ ಸರ್ವಿಸಸ್</h1>
+                    <p class="lang-en">Think Invest & Earn</p>
+                    <p class="lang-kn" style="display: none;">ಯೋಚಿಸಿ ಹೂಡಿಕೆ ಮಾಡಿ ಮತ್ತು ಗಳಿಸಿ</p>
+                </div>
+            </a>
+
+            <div class="hamburger" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <nav class="nav-container">
+                 <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="lang-en nav-item">Home</a><a href="#home" class="lang-kn nav-item" style="display: none;">ಮುಖಪುಟ</a></li>
+                    <li><a href="#services" class="lang-en nav-item">Services</a><a href="#services" class="lang-kn nav-item" style="display: none;">ಸೇವೆಗಳು</a></li>
+                    <li><a href="#why-us" class="lang-en nav-item">Why Us</a><a href="#why-us" class="lang-kn nav-item" style="display: none;">ಏಕೆ ನಾವು</a></li>
+                    <li><a href="#location" class="lang-en nav-item">Contact</a><a href="#location" class="lang-kn nav-item" style="display: none;">ಸಂಪರ್ಕ</a></li>
+                    <li class="language-toggle-container">
+                        <div class="language-toggle" id="languageToggle">
+                             <span class="lang-option" data-lang="en">English</span> |
+                             <span class="lang-option" data-lang="kn">ಕನ್ನಡ</span>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="mainContent" style="visibility: hidden;">
+
+        <section class="hero" id="home">
+            <div class="container">
+                <h2 class="lang-en">Your Partner for Financial Growth</h2> <h2 class="lang-kn" style="display: none;">ಹಣಕಾಸಿನ ಬೆಳವಣಿಗೆಗೆ ನಿಮ್ಮ ಪಾಲುದಾರ</h2>
+                <p class="lang-en">Comprehensive financial solutions including Investments, Loans, Insurance, and Tax Planning tailored for the Indian market.</p> <p class="lang-kn" style="display: none;">ಭಾರತೀಯ ಮಾರುಕಟ್ಟೆಗೆ ಅನುಗುಣವಾಗಿ ಹೂಡಿಕೆಗಳು, ಸಾಲಗಳು, ವಿಮೆ ಮತ್ತು ತೆರಿಗೆ ಯೋಜನೆ ಸೇರಿದಂತೆ ಸಮಗ್ರ ಹಣಕಾಸು ಪರಿಹಾರಗಳು.</p>
+                <div class="hero-buttons"> <a href="tel:+919880046990" class="cta-button primary lang-en">Consult Now</a>
+                     <a href="tel:+919880046990" class="cta-button primary lang-kn" style="display: none;">ಈಗ ಸಂಪರ್ಕಿಸಿ</a>
+                     <a href="#services" class="cta-button secondary lang-en">Our Services</a>
+                    <a href="#services" class="cta-button secondary lang-kn" style="display: none;">ನಮ್ಮ ಸೇವೆಗಳು</a>
+                    <a href="#" class="cta-button tertiary lang-en" id="download-brochure">Download Brochure</a>
+                    <a href="#" class="cta-button tertiary lang-kn" style="display: none;" id="download-brochure-kn">ಕರಪತ್ರ ಡೌನ್‌ಲೋಡ್</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2 class="lang-en">Our Comprehensive Services</h2>
+                    <h2 class="lang-kn" style="display: none;">ನಮ್ಮ ಸಮಗ್ರ ಸೇವೆಗಳು</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card" data-service="stock">
+                        <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="lang-en">Stock Market Investments</h3>
+                        <h3 class="lang-kn" style="display: none;">ಷೇರು ಮಾರುಕಟ್ಟೆ ಹೂಡಿಕೆಗಳು</h3>
+                        <p class="lang-en">Expert guidance on Equities and Futures & Options (F&O).</p>
+                        <p class="lang-kn" style="display: none;">ಇಕ್ವಿಟಿಗಳು ಮತ್ತು ಫ್ಯೂಚರ್ಸ್ & ಆಯ್ಕೆಗಳ (F&O) ಬಗ್ಗೆ ತಜ್ಞರ ಮಾರ್ಗದರ್ಶನ.</p>
+                    </div>
+                    <div class="service-card" data-service="mutual">
+                        <div class="service-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <h3 class="lang-en">Mutual Funds, SIPs & ETFs</h3>
+                        <h3 class="lang-kn" style="display: none;">ಮ್ಯೂಚುಯಲ್ ಫಂಡ್‌ಗಳು, SIPಗಳು & ಇಟಿಎಫ್‌ಗಳು</h3>
+                        <p class="lang-en">Systematic wealth growth through diverse fund options.</p>
+                        <p class="lang-kn" style="display: none;">ವೈವಿಧ್ಯಮಯ ಫಂಡ್ ಆಯ್ಕೆಗಳ ಮೂಲಕ ವ್ಯವಸ್ಥಿತ ಸಂಪತ್ತಿನ ಬೆಳವಣಿಗೆ.</p>
+                    </div>
+                    <div class="service-card" data-service="bonds">
+                        <div class="service-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <h3 class="lang-en">Bonds & Debentures</h3>
+                        <h3 class="lang-kn" style="display: none;">ಬಾಂಡ್‌ಗಳು & ಡಿಬೆಂಚರ್‌ಗಳು</h3>
+                        <p class="lang-en">Secure stable returns with fixed-income instruments.</p>
+                        <p class="lang-kn" style="display: none;">ಸ್ಥಿರ-ಆದಾಯ ಸಾಧನಗಳೊಂದಿಗೆ ಸ್ಥಿರ ಲಾಭವನ್ನು ಸುರಕ್ಷಿತಗೊಳಿಸಿ.</p>
+                    </div>
+                    <div class="service-card" data-service="insurance">
+                        <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="lang-en">Insurance Planning</h3>
+                        <h3 class="lang-kn" style="display: none;">ವಿಮಾ ಯೋಜನೆ</h3>
+                        <p class="lang-en">Comprehensive Health & Wealth protection solutions.</p>
+                        <p class="lang-kn" style="display: none;">ಸಮಗ್ರ ಆರೋಗ್ಯ ಮತ್ತು ಸಂಪತ್ತು ಸಂರಕ್ಷಣಾ ಪರಿಹಾರಗಳು.</p>
+                    </div>
+                    <div class="service-card" data-service="commodities">
+                        <div class="service-icon"><i class="fas fa-coins"></i></div>
+                        <h3 class="lang-en">Commodities</h3>
+                        <h3 class="lang-kn" style="display: none;">ಕಮಾಡಿಟಿಗಳು</h3>
+                        <p class="lang-en">Investments in Digital Gold, Silver, Crude Oil, etc.</p>
+                        <p class="lang-kn" style="display: none;">ಡಿಜಿಟಲ್ ಚಿನ್ನ, ಬೆಳ್ಳಿ, ಕಚ್ಚಾ ತೈಲ, ಇತ್ಯಾದಿಗಳಲ್ಲಿ ಹೂಡಿಕೆಗಳು.</p>
+                    </div>
+                     <div class="service-card" data-service="reits">
+                         <div class="service-icon"><i class="fas fa-city"></i></div>
+                        <h3 class="lang-en">Real Estate (REITs) & InvITs</h3>
+                        <h3 class="lang-kn" style="display: none;">ರಿಯಲ್ ಎಸ್ಟೇಟ್ (REITs) & InvITs</h3>
+                        <p class="lang-en">Invest in Real Estate & Infrastructure Investment Trusts.</p>
+                        <p class="lang-kn" style="display: none;">ರಿಯಲ್ ಎಸ್ಟೇಟ್ ಮತ್ತು ಮೂಲಸೌಕರ್ಯ ಹೂಡಿಕೆ ಟ್ರಸ್ಟ್‌ಗಳಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡಿ.</p>
+                    </div>
+                     <div class="service-card" data-service="crypto">
+                         <div class="service-icon"><i class="fab fa-bitcoin"></i></div> <h3 class="lang-en">Crypto & Forex</h3>
+                        <h3 class="lang-kn" style="display: none;">ಕ್ರಿಪ್ಟೋ & ಫಾರೆಕ್ಸ್</h3>
+                        <p class="lang-en">Guidance on Digital Currencies (Bitcoin, Ethereum) & Forex.</p>
+                        <p class="lang-kn" style="display: none;">ಡಿಜಿಟಲ್ ಕರೆನ್ಸಿಗಳು (ಬಿಟ್‌ಕಾಯಿನ್, ಎಥೆರಿಯಮ್) ಮತ್ತು ಫಾರೆಕ್ಸ್ ಕುರಿತು ಮಾರ್ಗದರ್ಶನ.</p>
+                    </div>
+                     <div class="service-card" data-service="fd">
+                        <div class="service-icon"><i class="fas fa-piggy-bank"></i></div>
+                        <h3 class="lang-en">Fixed Deposits (FDs)</h3>
+                        <h3 class="lang-kn" style="display: none;">ಸ್ಥಿರ ಠೇವಣಿಗಳು (FDs)</h3>
+                        <p class="lang-en">High-interest, DICGC-insured Bank Fixed Deposits.</p>
+                        <p class="lang-kn" style="display: none;">ಹೆಚ್ಚಿನ ಬಡ್ಡಿ, DICGC-ವಿಮೆ ಮಾಡಿದ ಬ್ಯಾಂಕ್ ಸ್ಥಿರ ಠೇವಣಿಗಳು.</p>
+                    </div>
+                     <div class="service-card" data-service="asset">
+                         <div class="service-icon"><i class="fas fa-tasks"></i></div>
+                        <h3 class="lang-en">Asset Management</h3>
+                        <h3 class="lang-kn" style="display: none;">ಆಸ್ತಿ ನಿರ್ವಹಣೆ</h3>
+                        <p class="lang-en">Portfolio review and restructuring for optimal growth.</p>
+                        <p class="lang-kn" style="display: none;">ಸೂಕ್ತ ಬೆಳವಣಿಗೆಗಾಗಿ ಪೋರ್ಟ್‌ಫೋಲಿಯೋ ವಿಮರ್ಶೆ ಮತ್ತು ಪುನರ್ರಚನೆ.</p>
+                    </div>
+                     <div class="service-card" data-service="loans">
+                         <div class="service-icon"><i class="fas fa-landmark"></i></div>
+                        <h3 class="lang-en">Loans (Secured)</h3>
+                        <h3 class="lang-kn" style="display: none;">ಸಾಲಗಳು (ಸುರಕ್ಷಿತ)</h3>
+                        <p class="lang-en">Assistance with loans against property and other assets.</p>
+                        <p class="lang-kn" style="display: none;">ಆಸ್ತಿ ಮತ್ತು ಇತರ ಆಸ್ತಿಗಳ ಮೇಲಿನ ಸಾಲಗಳಿಗೆ ನೆರವು.</p>
+                    </div>
+                     <div class="service-card" data-service="tax">
+                         <div class="service-icon"><i class="fas fa-calculator"></i></div>
+                        <h3 class="lang-en">Tax Planning & Saving</h3>
+                        <h3 class="lang-kn" style="display: none;">ತೆರಿಗೆ ಯೋಜನೆ ಮತ್ತು ಉಳಿತಾಯ</h3>
+                        <p class="lang-en">Strategic investments for effective tax management.</p>
+                        <p class="lang-kn" style="display: none;">ಪರಿಣಾಮಕಾರಿ ತೆರಿಗೆ ನಿರ್ವಹಣೆಗಾಗಿ ಕಾರ್ಯತಂತ್ರದ ಹೂಡಿಕೆಗಳು.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-us" id="why-us">
+             <div class="container">
+                 <div class="section-title">
+                     <h2 class="lang-en">Why Choose Ismart Financial?</h2>
+                     <h2 class="lang-kn" style="display: none;">ಐಸ್ಮಾರ್ಟ್ ಫೈನಾನ್ಷಿಯಲ್ ಏಕೆ ಆರಿಸಬೇಕು?</h2>
+                 </div>
+                 <div class="features-grid">
+                     <div class="feature-item">
+                         <div class="feature-icon"><i class="fas fa-user-tie"></i></div>
+                         <div class="feature-text">
+                             <h3 class="lang-en">Expert Advisors</h3><h3 class="lang-kn" style="display: none;">ತಜ್ಞ ಸಲಹೆಗಾರರು</h3>
+                             <p class="lang-en">Experienced professionals dedicated to your financial success in Bengaluru & beyond.</p><p class="lang-kn" style="display: none;">ಬೆಂಗಳೂರು ಮತ್ತು ಅದರಾಚೆ ನಿಮ್ಮ ಹಣಕಾಸಿನ ಯಶಸ್ಸಿಗೆ ಸಮರ್ಪಿತರಾದ ಅನುಭವಿ ವೃತ್ತಿಪರರು.</p>
+                         </div>
+                     </div>
+                     <div class="feature-item">
+                          <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                         <div class="feature-text">
+                             <h3 class="lang-en">Personalized Strategies</h3><h3 class="lang-kn" style="display: none;">ವೈಯಕ್ತಿಕಗೊಳಿಸಿದ ತಂತ್ರಗಳು</h3>
+                             <p class="lang-en">Customized plans based on your unique goals and risk tolerance.</p><p class="lang-kn" style="display: none;">ನಿಮ್ಮ ವಿಶಿಷ್ಟ ಗುರಿಗಳು ಮತ್ತು ಅಪಾಯ ಸಹಿಷ್ಣುತೆಯನ್ನು ಆಧರಿಸಿದ ಕಸ್ಟಮೈಸ್ ಮಾಡಿದ ಯೋಜನೆಗಳು.</p>
+                         </div>
+                     </div>
+                     <div class="feature-item">
+                         <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                         <div class="feature-text">
+                             <h3 class="lang-en">Wide Range of Services</h3><h3 class="lang-kn" style="display: none;">ವ್ಯಾಪಕ ಶ್ರೇಣಿಯ ಸೇವೆಗಳು</h3>
+                             <p class="lang-en">All your financial needs covered under one roof - Investments to Loans.</p><p class="lang-kn" style="display: none;">ನಿಮ್ಮ ಎಲ್ಲಾ ಹಣಕಾಸಿನ ಅಗತ್ಯಗಳನ್ನು ಒಂದೇ ಸೂರಿನಡಿ ಪೂರೈಸಲಾಗುತ್ತದೆ - ಹೂಡಿಕೆಯಿಂದ ಸಾಲದವರೆಗೆ.</p>
+                         </div>
+                     </div>
+                      <div class="feature-item">
+                         <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                         <div class="feature-text">
+                             <h3 class="lang-en">Client-Centric Approach</h3><h3 class="lang-kn" style="display: none;">ಗ್ರಾಹಕ-ಕೇಂದ್ರಿತ ವಿಧಾನ</h3>
+                             <p class="lang-en">Your financial well-being and growth is our primary focus.</p><p class="lang-kn" style="display: none;">ನಿಮ್ಮ ಆರ್ಥಿಕ ಯೋಗಕ್ಷೇಮ ಮತ್ತು ಬೆಳವಣಿಗೆ ನಮ್ಮ ಪ್ರಾಥಮಿಕ ಗಮನ.</p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+        <section class="location" id="location">
+             <div class="container">
+                 <div class="section-title">
+                     <h2 class="lang-en">Get In Touch - Visit Us</h2>
+                     <h2 class="lang-kn" style="display: none;">ಸಂಪರ್ಕದಲ್ಲಿರಿ - ನಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಿ</h2>
+                 </div>
+                 <div class="location-content">
+                     <div class="map-container">
+                        <div class="map-placeholder">
+                             <i class="fas fa-map-marked-alt"></i>
+                            <span class="lang-en">Map Area - Embedding Coming Soon</span>
+                            <span class="lang-kn" style="display: none;">ನಕ್ಷೆ ಪ್ರದೇಶ - ಶೀಘ್ರದಲ್ಲೇ ಎಂಬೆಡಿಂಗ್</span>
+                        </div>
+                        </div>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-info">
+                                <h4 class="lang-en">Our Location</h4><h4 class="lang-kn" style="display: none;">ನಮ್ಮ ಸ್ಥಳ</h4>
+                                <p class="lang-en">#123 Ismart Avenue, Finance Nagar, Bengaluru, Karnataka 560001</p>
+                                <p class="lang-kn" style="display: none;">#೧೨೩ ಐಸ್ಮಾರ್ಟ್ ಅವೆನ್ಯೂ, ಫೈನಾನ್ಸ್ ನಗರ್, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ ೫೬೦೦೦೧</p>
+                            </div>
+                        </div>
+                         <div class="contact-item">
+                             <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="contact-info">
+                                <h4 class="lang-en">Call Us</h4><h4 class="lang-kn" style="display: none;">ನಮಗೆ ಕರೆ ಮಾಡಿ</h4>
+                                 <p><a href="tel:+919880046990">+91 98800 46990</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-info">
+                                <h4 class="lang-en">Email Us</h4><h4 class="lang-kn" style="display: none;">ನಮಗೆ ಇಮೇಲ್ ಮಾಡಿ</h4>
+                                <p><a href="mailto:info@ismartfinancial.com">info@ismartfinancial.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fab fa-whatsapp" style="color: #25D366;"></i></div>
+                            <div class="contact-info">
+                                <h4 class="lang-en">WhatsApp Us</h4><h4 class="lang-kn" style="display: none;">ನಮಗೆ ವಾಟ್ಸಾಪ್ ಮಾಡಿ</h4>
+                                <p><a href="https://wa.me/919880046990" target="_blank" rel="noopener noreferrer">+91 98800 46990</a></p>
+                            </div>
+                        </div>
+                         <div class="contact-item">
+                              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                             <div class="contact-info">
+                                 <h4 class="lang-en">Business Hours</h4><h4 class="lang-kn" style="display: none;">ವ್ಯಾಪಾರ ಸಮಯ</h4>
+                                 <p class="lang-en">Mon - Fri: 9:00 AM - 6:00 PM</p>
+                                 <p class="lang-kn" style="display: none;">ಸೋಮ - ಶುಕ್ರ: 9:00 AM - 6:00 PM</p>
+                                 <p class="lang-en">Sat: 10:00 AM - 2:00 PM / Sun: Closed</p>
+                                 <p class="lang-kn" style="display: none;">ಶನಿ: 10:00 AM - 2:00 PM / ಭಾನು: ಮುಚ್ಚಲಾಗಿದೆ</p>
+                             </div>
+                         </div>
+                    </div>
+                 </div>
+             </div>
+        </section>
+
+    </main> <footer>
+        <div class="container">
+            <div class="footer-content">
+                 <div class="footer-section about">
+                     <h3 class="lang-en">About Ismart</h3><h3 class="lang-kn" style="display: none;">ಐಸ್ಮಾರ್ಟ್ ಬಗ್ಗೆ</h3>
+                     <p class="lang-en">Your trusted partner in Bengaluru for achieving financial goals through smart strategies.</p>
+                     <p class="lang-kn" style="display: none;">ಸ್ಮಾರ್ಟ್ ತಂತ್ರಗಳ ಮೂಲಕ ಆರ್ಥಿಕ ಗುರಿಗಳನ್ನು ಸಾಧಿಸಲು ಬೆಂಗಳೂರಿನಲ್ಲಿ ನಿಮ್ಮ ವಿಶ್ವಾಸಾರ್ಹ ಪಾಲುದಾರ.</p>
+                     <div class="social-links">
+                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                         <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                         <a href="https://wa.me/919880046990" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                     </div>
+                 </div>
+                 <div class="footer-section links">
+                     <h3 class="lang-en">Quick Links</h3><h3 class="lang-kn" style="display: none;">ತ್ವರಿತ ಲಿಂಕ್‌ಗಳು</h3>
+                     <ul class="footer-links">
+                         <li><a href="#home" class="lang-en"><i class="fas fa-angle-right"></i> Home</a><a href="#home" class="lang-kn" style="display: none;"><i class="fas fa-angle-right"></i> ಮುಖಪುಟ</a></li>
+                         <li><a href="#services" class="lang-en"><i class="fas fa-angle-right"></i> Services</a><a href="#services" class="lang-kn" style="display: none;"><i class="fas fa-angle-right"></i> ಸೇವೆಗಳು</a></li>
+                         <li><a href="#why-us" class="lang-en"><i class="fas fa-angle-right"></i> Why Us</a><a href="#why-us" class="lang-kn" style="display: none;"><i class="fas fa-angle-right"></i> ಏಕೆ ನಾವು</a></li>
+                         <li><a href="#location" class="lang-en"><i class="fas fa-angle-right"></i> Contact</a><a href="#location" class="lang-kn" style="display: none;"><i class="fas fa-angle-right"></i> ಸಂಪರ್ಕ</a></li>
+                         <li><a href="#" class="lang-en"><i class="fas fa-angle-right"></i> Privacy Policy</a><a href="#" class="lang-kn" style="display: none;"><i class="fas fa-angle-right"></i> ಗೌಪ್ಯತಾ ನೀತಿ</a></li>
+                     </ul>
+                 </div>
+                <div class="footer-section contact">
+                    <h3 class="lang-en">Contact Info</h3><h3 class="lang-kn" style="display: none;">ಸಂಪರ್ಕ ಮಾಹಿತಿ</h3>
+                     <ul class="footer-links">
+                          <li><span class="lang-en"><i class="fas fa-map-marker-alt"></i> Bengaluru, India</span><span class="lang-kn" style="display: none;"><i class="fas fa-map-marker-alt"></i> ಬೆಂಗಳೂರು, ಭಾರತ</span></li>
+                          <li><a href="tel:+919880046990"><i class="fas fa-phone-alt"></i> +91 98800 46990</a></li>
+                          <li><a href="mailto:info@ismartfinancial.com"><i class="fas fa-envelope"></i> info@ismartfinancial.com</a></li>
+                          <li><a href="https://wa.me/919880046990" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp</a></li>
+                     </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="currentYear">2025</span> Ismart Financial Services. All Rights Reserved.</p>
+                 </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Elements ---
+            const languageModal = document.getElementById('languageModal');
+            const chooseEnglishBtn = document.getElementById('chooseEnglish');
+            const chooseKannadaBtn = document.getElementById('chooseKannada');
+            const serviceModal = document.getElementById('serviceModal');
+            const closeServiceModalBtn = document.getElementById('closeServiceModal');
+            const modalServiceName = document.getElementById('modalServiceName');
+            const modalServiceDescription = document.getElementById('modalServiceDescription');
+            const serviceCards = document.querySelectorAll('.service-card');
+            const languageToggles = document.querySelectorAll('.language-toggle .lang-option');
+            const mainContent = document.getElementById('mainContent');
+            const body = document.body;
+            const hamburger = document.getElementById('hamburgerMenu');
+            const navLinks = document.getElementById('navLinks');
+            const navItems = document.querySelectorAll('.nav-item');
+            const currentYearSpan = document.getElementById('currentYear');
+            const servicesGrid = document.querySelector('.services-grid');
+
+            let currentLanguage = 'en'; // Default to English
+
+            // --- Initial State Setup ---
+            // Since the language modal starts visible, hide body overflow initially
+            if (languageModal.style.display === 'flex' || getComputedStyle(languageModal).display === 'flex') {
+                 body.style.overflow = 'hidden';
+            }
+
+
+            // --- UPDATED Service Descriptions ---
+            const serviceDetails = {
+                en: {
+                    stock: {
+                        name: "Stock Market Investments",
+                        desc: "Expert advisory for investing in Indian Equities (NSE/BSE) and navigating Futures & Options (F&O). Strategies tailored for both long-term growth and active trading."
+                    },
+                    mutual: {
+                        name: "Mutual Funds, SIPs & ETFs",
+                        desc: "Build diversified portfolios with Mutual Funds (Equity, Debt, Hybrid), start disciplined investing via Systematic Investment Plans (SIPs), and explore Exchange Traded Funds (ETFs) for specific market exposure."
+                    },
+                    bonds: {
+                        name: "Bonds & Debentures",
+                        desc: "Secure stable returns with fixed-income investments like Government Securities (G-Secs), Corporate Bonds, and Debentures. Focus on safety and predictable income streams."
+                    },
+                    insurance: {
+                        name: "Insurance Planning",
+                        desc: "Comprehensive protection solutions including Term Life Insurance, Health Insurance (Individual & Family Floater), Critical Illness cover, and General Insurance (Motor, Home)."
+                    },
+                    commodities: {
+                        name: "Commodities",
+                        desc: "Diversify investments through commodities like Digital Gold, Sovereign Gold Bonds (SGBs), Silver, and advisory on Crude Oil trading. Understand the specific risks and potential."
+                    },
+                    reits: {
+                        name: "Real Estate (REITs) & InvITs",
+                        desc: "Invest fractionally in large-scale commercial Real Estate (REITs) and Infrastructure projects (InvITs) listed on exchanges, earning potential rental income and capital appreciation."
+                    },
+                     crypto: {
+                        name: "Crypto & Forex",
+                        desc: "Navigating the world of digital assets. Guidance on major cryptocurrencies like Bitcoin (BTC), Ethereum (ETH), and understanding the basics of Foreign Exchange (Forex) markets. High risk advisory."
+                    },
+                    fd: {
+                        name: "Fixed Deposits (FDs)",
+                        desc: "Secure, predictable returns with Bank Fixed Deposits, insured by DICGC up to ₹5 Lakhs. Guidance on choosing appropriate tenures and understanding interest/TDS."
+                    },
+                    asset: {
+                        name: "Asset Management",
+                        desc: "Holistic management of your financial assets. Includes portfolio review, performance tracking, risk assessment, and strategic restructuring to align with your financial goals."
+                    },
+                    loans: {
+                        name: "Loans (Secured)",
+                        desc: "Assistance in securing loans against property (LAP), shares, mutual funds, or other assets. Guidance on eligibility, documentation, and choosing the right lender."
+                    },
+                    tax: {
+                        name: "Tax Planning & Saving",
+                        desc: "Optimize your tax liabilities through strategic investment planning using eligible instruments under sections like 80C, 80D, etc. Ensure compliance and maximize savings."
+                    }
+                },
+                kn: { // Kannada Translations (Machine Translated - Review Recommended)
+                     stock: {
+                         name: "ಷೇರು ಮಾರುಕಟ್ಟೆ ಹೂಡಿಕೆಗಳು",
+                         desc: "ಭಾರತೀಯ ಇಕ್ವಿಟಿಗಳಲ್ಲಿ (NSE/BSE) ಹೂಡಿಕೆ ಮಾಡಲು ಮತ್ತು ಫ್ಯೂಚರ್ಸ್ & ಆಪ್ಷನ್ಸ್ (F&O) ನ್ಯಾವಿಗೇಟ್ ಮಾಡಲು ತಜ್ಞರ ಸಲಹೆ. ದೀರ್ಘಕಾಲೀನ ಬೆಳವಣಿಗೆ ಮತ್ತು ಸಕ್ರಿಯ ವ್ಯಾಪಾರಕ್ಕಾಗಿ ಸೂಕ್ತವಾದ ತಂತ್ರಗಳು."
+                     },
+                     mutual: {
+                         name: "ಮ್ಯೂಚುಯಲ್ ಫಂಡ್‌ಗಳು, SIPಗಳು ಮತ್ತು ಇಟಿಎಫ್‌ಗಳು",
+                         desc: "ಮ್ಯೂಚುಯಲ್ ಫಂಡ್‌ಗಳೊಂದಿಗೆ (ಇಕ್ವಿಟಿ, ಸಾಲ, ಹೈಬ್ರಿಡ್) ವೈವಿಧ್ಯಮಯ ಪೋರ್ಟ್‌ಫೋಲಿಯೊಗಳನ್ನು ನಿರ್ಮಿಸಿ, ವ್ಯವಸ್ಥಿತ ಹೂಡಿಕೆ ಯೋಜನೆಗಳ (SIPs) ಮೂಲಕ ಶಿಸ್ತುಬದ್ಧ ಹೂಡಿಕೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ, ಮತ್ತು ನಿರ್ದಿಷ್ಟ ಮಾರುಕಟ್ಟೆ ಮಾನ್ಯತೆಗಾಗಿ ಎಕ್ಸ್‌ಚೇಂಜ್ ಟ್ರೇಡೆಡ್ ಫಂಡ್‌ಗಳನ್ನು (ETFs) ಅನ್ವೇಷಿಸಿ."
+                     },
+                     bonds: {
+                         name: "ಬಾಂಡ್‌ಗಳು & ಡಿಬೆಂಚರ್‌ಗಳು",
+                         desc: "ಸರ್ಕಾರಿ ಭದ್ರತೆಗಳು (G-Secs), ಕಾರ್ಪೊರೇಟ್ ಬಾಂಡ್‌ಗಳು ಮತ್ತು ಡಿಬೆಂಚರ್‌ಗಳಂತಹ ಸ್ಥಿರ-ಆದಾಯ ಹೂಡಿಕೆಗಳೊಂದಿಗೆ ಸ್ಥಿರ ಲಾಭವನ್ನು ಸುರಕ್ಷಿತಗೊಳಿಸಿ. ಸುರಕ್ಷತೆ ಮತ್ತು ಊಹಿಸಬಹುದಾದ ಆದಾಯದ ಮೇಲೆ ಗಮನಹರಿಸಿ."
+                     },
+                     insurance: {
+                         name: "ವಿಮಾ ಯೋಜನೆ",
+                         desc: "ಟರ್ಮ್ ಲೈಫ್ ಇನ್ಶೂರೆನ್ಸ್, ಆರೋಗ್ಯ ವಿಮೆ (ವೈಯಕ್ತಿಕ ಮತ್ತು ಕುಟುಂಬ ಫ್ಲೋಟರ್), ಕ್ರಿಟಿಕಲ್ ಇಲ್ನೆಸ್ ಕವರ್, ಮತ್ತು ಸಾಮಾನ್ಯ ವಿಮೆ (ಮೋಟಾರು, ಮನೆ) ಸೇರಿದಂತೆ ಸಮಗ್ರ ಸಂರಕ್ಷಣಾ ಪರಿಹಾರಗಳು."
+                     },
+                     commodities: {
+                         name: "ಕಮಾಡಿಟಿಗಳು",
+                         desc: "ಡಿಜಿಟಲ್ ಗೋಲ್ಡ್, ಸಾವರಿನ್ ಗೋಲ್ಡ್ ಬಾಂಡ್‌ಗಳು (SGBs), ಬೆಳ್ಳಿ, ಮತ್ತು ಕಚ್ಚಾ ತೈಲ ವ್ಯಾಪಾರದ ಕುರಿತು ಸಲಹೆಯಂತಹ ಕಮಾಡಿಟಿಗಳ ಮೂಲಕ ಹೂಡಿಕೆಗಳನ್ನು ವೈವಿಧ್ಯಗೊಳಿಸಿ. ನಿರ್ದಿಷ್ಟ ಅಪಾಯಗಳು ಮತ್ತು ಸಾಮರ್ಥ್ಯವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ."
+                     },
+                     reits: {
+                         name: "ರಿಯಲ್ ಎಸ್ಟೇಟ್ (REITs) & InvITs",
+                         desc: "ವಿನಿಮಯ ಕೇಂದ್ರಗಳಲ್ಲಿ ಪಟ್ಟಿ ಮಾಡಲಾದ ದೊಡ್ಡ ಪ್ರಮಾಣದ ವಾಣಿಜ್ಯ ರಿಯಲ್ ಎಸ್ಟೇಟ್ (REITs) ಮತ್ತು ಮೂಲಸೌಕರ್ಯ ಯೋಜನೆಗಳಲ್ಲಿ (InvITs) ಭಾಗಶಃ ಹೂಡಿಕೆ ಮಾಡಿ, ಸಂಭಾವ್ಯ ಬಾಡಿಗೆ ಆದಾಯ ಮತ್ತು ಬಂಡವಾಳ ಮೆಚ್ಚುಗೆಯನ್ನು ಗಳಿಸಿ."
+                     },
+                      crypto: {
+                         name: "ಕ್ರಿಪ್ಟೋ & ಫಾರೆಕ್ಸ್",
+                         desc: "ಡಿಜಿಟಲ್ ಆಸ್ತಿಗಳ ಜಗತ್ತನ್ನು ನ್ಯಾವಿಗೇಟ್ ಮಾಡುವುದು. ಬಿಟ್‌ಕಾಯಿನ್ (BTC), ಎಥೆರಿಯಮ್ (ETH) ನಂತಹ ಪ್ರಮುಖ ಕ್ರಿಪ್ಟೋಕರೆನ್ಸಿಗಳ ಕುರಿತು ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ವಿದೇಶಿ ವಿನಿಮಯ (ಫಾರೆಕ್ಸ್) ಮಾರುಕಟ್ಟೆಗಳ ಮೂಲಭೂತ ತಿಳುವಳಿಕೆ. ಹೆಚ್ಚಿನ ಅಪಾಯದ ಸಲಹೆ."
+                     },
+                     fd: {
+                         name: "ಸ್ಥಿರ ಠೇವಣಿಗಳು (FDs)",
+                         desc: "₹5 ಲಕ್ಷದವರೆಗೆ DICGC ಯಿಂದ ವಿಮೆ ಮಾಡಲ್ಪಟ್ಟ ಬ್ಯಾಂಕ್ ಸ್ಥಿರ ಠೇವಣಿಗಳೊಂದಿಗೆ ಸುರಕ್ಷಿತ, ಊಹಿಸಬಹುದಾದ ಆದಾಯ. ಸೂಕ್ತ ಅವಧಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡುವ ಮತ್ತು ಬಡ್ಡಿ/TDS ಅನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವ ಬಗ್ಗೆ ಮಾರ್ಗದರ್ಶನ."
+                     },
+                     asset: {
+                         name: "ಆಸ್ತಿ ನಿರ್ವಹಣೆ",
+                         desc: "ನಿಮ್ಮ ಹಣಕಾಸಿನ ಆಸ್ತಿಗಳ ಸಮಗ್ರ ನಿರ್ವಹಣೆ. ಪೋರ್ಟ್‌ಫೋಲಿಯೋ ವಿಮರ್ಶೆ, ಕಾರ್ಯಕ್ಷಮತೆ ಟ್ರ್ಯಾಕಿಂಗ್, ಅಪಾಯದ ಮೌಲ್ಯಮಾಪನ, ಮತ್ತು ನಿಮ್ಮ ಹಣಕಾಸಿನ ಗುರಿಗಳೊಂದಿಗೆ ಹೊಂದಿಸಲು ಕಾರ್ಯತಂತ್ರದ ಪುನರ್ರಚನೆಯನ್ನು ಒಳಗೊಂಡಿದೆ."
+                     },
+                     loans: {
+                         name: "ಸಾಲಗಳು (ಸುರಕ್ಷಿತ)",
+                         desc: "ಆಸ್ತಿ (LAP), ಷೇರುಗಳು, ಮ್ಯೂಚುಯಲ್ ಫಂಡ್‌ಗಳು, ಅಥವಾ ಇತರ ಆಸ್ತಿಗಳ ಮೇಲಿನ ಸಾಲಗಳನ್ನು ಪಡೆಯಲು ನೆರವು. ಅರ್ಹತೆ, ದಾಖಲಾತಿ, ಮತ್ತು ಸರಿಯಾದ ಸಾಲದಾತರನ್ನು ಆಯ್ಕೆ ಮಾಡುವ ಬಗ್ಗೆ ಮಾರ್ಗದರ್ಶನ."
+                     },
+                     tax: {
+                         name: "ತೆರಿಗೆ ಯೋಜನೆ ಮತ್ತು ಉಳಿತಾಯ",
+                         desc: "ಸೆಕ್ಷನ್ 80C, 80D, ಇತ್ಯಾದಿಗಳ ಅಡಿಯಲ್ಲಿ ಅರ್ಹ ಸಾಧನಗಳನ್ನು ಬಳಸಿಕೊಂಡು ಕಾರ್ಯತಂತ್ರದ ಹೂಡಿಕೆ ಯೋಜನೆಯ ಮೂಲಕ ನಿಮ್ಮ ತೆರಿಗೆ ಹೊಣೆಗಾರಿಕೆಗಳನ್ನು ಆಪ್ಟಿಮೈಜ್ ಮಾಡಿ. ಅನುಸರಣೆಯನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ ಮತ್ತು ಉಳಿತಾಯವನ್ನು ಗರಿಷ್ಠಗೊಳಿಸಿ."
+                     }
+                }
+            };
+
+            // --- Functions ---
+
+            // Set Language Function
+            function setLanguage(lang) {
+                currentLanguage = lang;
+                document.documentElement.lang = lang;
+
+                document.querySelectorAll('.lang-en, .lang-kn').forEach(el => {
+                    if (el.classList.contains(`lang-${lang}`)) {
+                        el.style.display = '';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                });
+
+                languageToggles.forEach(toggle => {
+                    if (toggle.dataset.lang === lang) {
+                        toggle.classList.add('active-lang');
+                    } else {
+                        toggle.classList.remove('active-lang');
+                    }
+                });
+
+                languageModal.style.display = 'none';
+                mainContent.style.visibility = 'visible';
+                body.style.overflow = ''; // Restore scrolling
+
+                setActiveNavItem();
+                closeMobileMenu();
+            }
+
+             // Show Service Modal Function
+             function showServiceModal(serviceKey) {
+                const details = serviceDetails[currentLanguage]?.[serviceKey];
+                if (details) {
+                    modalServiceName.textContent = details.name;
+                    modalServiceDescription.textContent = details.desc;
+                    serviceModal.style.display = 'flex';
+                    body.style.overflow = 'hidden'; // Prevent background scroll
+                } else {
+                    console.error(`Details not found for service: ${serviceKey} in language: ${currentLanguage}`);
+                     modalServiceName.textContent = "Details Unavailable";
+                     modalServiceDescription.textContent = "Sorry, information for this service could not be loaded.";
+                     serviceModal.style.display = 'flex';
+                     body.style.overflow = 'hidden';
+                }
+            }
+
+            // Hide Service Modal Function
+             function hideServiceModal() {
+                 serviceModal.style.display = 'none';
+                 body.style.overflow = ''; // Restore scrolling
+             }
+
+             // Toggle Mobile Menu
+             function toggleMobileMenu() {
+                 navLinks.classList.toggle('active');
+                 hamburger.classList.toggle('active');
+             }
+
+             // Close Mobile Menu
+             function closeMobileMenu() {
+                 navLinks.classList.remove('active');
+                 hamburger.classList.remove('active');
+             }
+
+             // Set Active Navigation Item based on Scroll Position
+             function setActiveNavItem() {
+                 let scrollY = window.pageYOffset;
+                 let currentSectionId = '';
+                 const headerOffset = 100; // Adjust if header height changes
+
+                 document.querySelectorAll('main section[id]').forEach(section => {
+                     const sectionTop = section.offsetTop - headerOffset;
+                     const sectionHeight = section.offsetHeight;
+                     if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                         currentSectionId = section.getAttribute('id');
+                     }
+                 });
+
+                  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+                      const sections = document.querySelectorAll('main section[id]');
+                      if (sections.length > 0) {
+                          currentSectionId = sections[sections.length - 1].id;
+                      }
+                  }
+
+                  if (scrollY < (document.getElementById('home')?.offsetTop ?? headerOffset) - headerOffset) {
+                      currentSectionId = 'home';
+                  }
+
+                 navItems.forEach(item => {
+                     item.classList.remove('active-nav');
+                     if (item.getAttribute('href') === `#${currentSectionId}` && item.style.display !== 'none') {
+                         item.classList.add('active-nav');
+                     }
+                 });
+             }
+
+
+            // --- Event Listeners ---
+
+             // Initial Language Selection
+            chooseEnglishBtn.addEventListener('click', () => setLanguage('en'));
+            chooseKannadaBtn.addEventListener('click', () => setLanguage('kn'));
+
+             // Language Toggle in Header/Mobile Menu
+             languageToggles.forEach(toggle => {
+                 toggle.addEventListener('click', (e) => {
+                     // Ensure target is the span itself, not the parent div
+                      const targetSpan = e.target.closest('span.lang-option');
+                      if (targetSpan && !targetSpan.classList.contains('active-lang')) {
+                           setLanguage(targetSpan.dataset.lang);
+                      }
+                 });
+             });
+
+
+            // Service Card Clicks (using event delegation)
+            if (servicesGrid) {
+                 servicesGrid.addEventListener('click', (e) => {
+                     const card = e.target.closest('.service-card');
+                     if (card && card.dataset.service) {
+                         showServiceModal(card.dataset.service);
+                     }
+                 });
+             } else {
+                 console.error("Services grid element (.services-grid) not found!");
+             }
+
+
+            // Close Service Modal Button
+            closeServiceModalBtn.addEventListener('click', hideServiceModal);
+
+            // Close Service Modal on Outside Click
+            serviceModal.addEventListener('click', (e) => {
+                if (e.target === serviceModal) {
+                    hideServiceModal();
+                }
+            });
+
+            // Hamburger Menu Toggle
+            if (hamburger) {
+                 hamburger.addEventListener('click', toggleMobileMenu);
+            }
+
+             // Close mobile menu when a nav link is clicked
+             if (navLinks) {
+                 navLinks.addEventListener('click', (e) => {
+                     if (e.target.tagName === 'A' && e.target.closest('#navLinks')) {
+                         // Smooth scroll is handled by CSS 'scroll-behavior: smooth;'
+                         closeMobileMenu();
+                     }
+                 });
+             }
+
+             // Set active nav item on scroll and load
+             window.addEventListener('scroll', setActiveNavItem);
+             setActiveNavItem(); // Initial check on load
+
+
+             // Update Footer Year
+            if (currentYearSpan) {
+                 currentYearSpan.textContent = new Date().getFullYear();
+             } else {
+                 // Fallback for footer year if span missing (e.g., manually update in HTML)
+                 console.warn("Footer year span #currentYear not found.");
+             }
+
+
+        });
+    </script>
+
+</body>
+</html>
